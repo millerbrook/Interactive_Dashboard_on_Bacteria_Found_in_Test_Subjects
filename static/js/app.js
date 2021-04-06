@@ -1,6 +1,13 @@
 // FUNCTION: Build required charts
-function buildCharts(UID) {
-
+function buildCharts(sample) {
+    let barValues = sample.sample_values;
+    let barLabels = sample.otu_ids;
+    let barHoverText = sample.otu_labels;
+    let bubbleX = sample.otu_ids;
+    let bubbleY = sample.sample_values;
+    let bubbleMV = sample.sample_values;
+    let bubbleMC = sample.otu_ids;
+    let bubbleTXT = sample.otu_labels;
     var barChart = d3.select("#bar");
     var bubbleChart = d3.select("#bubble");
     var guageChart = d3.select("#guage");
@@ -11,8 +18,8 @@ function buildCharts(UID) {
 };
 
 // FUNCTION: Publish population demo
-function populateDemoInfo(UID){
-    console.log(UID)
+function populateDemoInfo(sample){
+    //console.log(sample)
 }
 
 // FUNCTION: Grab oroper data once event is selected
@@ -22,13 +29,14 @@ function optionChanged() {
     // Assign the value of the dropdown menu option to a variable
     var dataID = dropdownMenu.property("value");
     // Grab json data related to that variable
-    dataset = d3.json("samples.json").samples;
-    sample = dataset.forEach(function(){
-        dataset.id = dataID;
+    d3.json("samples.json").then(function(data){
+        let sample = data.samples.filter(wholeSample => wholeSample.id === dataID)[0];
+        console.log(sample);
     });
-    console.log(sample);
-    buildCharts(UID);
-    populateDemoInfo(UID);
+    
+    console.log(dataID);
+    //buildCharts(sample);
+    //populateDemoInfo(dataID);
 }
 
 // FUNCTION: Initialize Dashboard
