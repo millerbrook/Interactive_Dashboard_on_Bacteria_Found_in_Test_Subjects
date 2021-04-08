@@ -133,10 +133,29 @@ function initDashboard() {
            type: 'bar',
            y: ten_otu_ids,
            x: tenSampleValues,
+           text: ten_otu_labels,
            orientation: 'h'
         }];
+        //Build Bubble Chart
+        var trace1 = {
+            x: otu_ids,
+            y: sample_values,
+            mode: 'markers',
+            marker: {
+                size: sample_values,
+                sizemode: 'area'
+            }
+        }
+        var bubbleData = [trace1];
+        var layour = {
+            title: 'CLEVER TITLE',
+            showlegend: false,
+            height: 600,
+            area: 600
+        };
 
         Plotly.newPlot('bar', barData);
+        Plotly.newPlot('bubble', bubbleData);
         //buildCharts(names[0]);
        // populateDemoInfo(names[0]);
     });
