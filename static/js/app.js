@@ -110,10 +110,33 @@ function initDashboard() {
                 };
             };
         };
-        console.log("Data indexes: ");
-        console.log(data_indexes);
+        //Was there an easier way to do that?
+
+        //Now, make arrays of otu_ids and otu_labels based on the data_indexes (so all three arrays line up)
+        ten_otu_ids = [];
+        ten_otu_labels = [];
+        data_indexes.forEach(function(data_index) {
+            ten_otu_ids.push(`OTU ${otu_ids[data_index]}`);
+            ten_otu_labels.push(otu_labels[data_index]);
+        } );
+
+        //Check that everything lines up
         console.log("Ten Sample Values: ");
         console.log(tenSampleValues);
+        console.log("Ten Otu Ids: ");
+        console.log(ten_otu_ids);
+        console.log("Ten Otu Labels: ");
+        console.log(ten_otu_labels);
+
+        //Build Horizontal Bar Chart
+        var barData = [{
+           type: 'bar',
+           y: ten_otu_ids,
+           x: tenSampleValues,
+           orientation: 'h'
+        }];
+
+        Plotly.newPlot('bar', barData);
         //buildCharts(names[0]);
        // populateDemoInfo(names[0]);
     });
