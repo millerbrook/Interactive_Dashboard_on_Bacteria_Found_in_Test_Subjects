@@ -140,6 +140,7 @@ function initDashboard() {
         var trace1 = {
             x: otu_ids,
             y: sample_values,
+            text: otu_labels,
             mode: 'markers',
             marker: {
                 size: sample_values,
@@ -147,15 +148,27 @@ function initDashboard() {
             }
         }
         var bubbleData = [trace1];
-        var layour = {
+        var layout = {
             title: 'CLEVER TITLE',
             showlegend: false,
             height: 600,
             area: 600
         };
-
+        //Plot both charts
         Plotly.newPlot('bar', barData);
-        Plotly.newPlot('bubble', bubbleData);
+        Plotly.newPlot('bubble', bubbleData, layout);
+
+        //Populate Demographic Box
+        //First, grab appropriate metadata
+        var metadata = data.metadata //create value to capture whole samples object from data
+        //return appropriate sample object from within samples
+        SID = 940;
+        function filterMetaData_Values(metadata) {
+             return metadata.id === SID; //Remember that samples.id must be a string
+        };
+        var metadatum = metadata.filter(filterMetaData_Values);
+        console.log("Metadatum: ");
+        console.log(metadatum[0]);
         //buildCharts(names[0]);
        // populateDemoInfo(names[0]);
     });
