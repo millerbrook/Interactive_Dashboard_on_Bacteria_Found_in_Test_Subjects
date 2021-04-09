@@ -1,8 +1,7 @@
 //Function to build demographic data table
 function buildChartsTable(SID) {
   //console.log(typeof metadatum);
-  //Select Demographic data box
-  var demoInfo = d3.select("#sample-metadata");
+
   //Read samples.json
   d3.json("samples.json").then((data) => {
     //console.log(`SID: ${SID}`);
@@ -68,19 +67,22 @@ function buildChartsTable(SID) {
       },
     ];
     //Build Bubble Chart
-    var trace1 = {
-      x: otu_ids,
-      y: sample_values,
-      text: otu_labels,
-      mode: "markers",
-      marker: {
-        size: sample_values,
-        sizemode: "area",
+    var bubbleData = [
+      {
+        x: otu_ids,
+        y: sample_values,
+        text: otu_labels,
+        mode: "markers",
+        marker: {
+          size: sample_values,
+          sizemode: "area",
+          colorscale: "Earth",
+          color: otu_ids,
+        },
       },
-    };
-    var bubbleData = [trace1];
+    ];
+
     var layout = {
-      title: "CLEVER TITLE",
       showlegend: false,
       height: 600,
       area: 600,
@@ -89,62 +91,49 @@ function buildChartsTable(SID) {
     Plotly.newPlot("bar", barData);
     Plotly.newPlot("bubble", bubbleData, layout);
 
+    //Select Demographic data box
+    var demoInfo = d3.select("#sample-metadata");
     //Populate Demographic Box
     //First, grab appropriate metadata
     var metadata = data.metadata; //create value to capture whole samples object from data
     //return appropriate sample object from within samples
-    SID = parseInt(SID);//Convert string SID to INT to work with metadata (where ID is an INT)
+    SID = parseInt(SID); //Convert string SID to INT to work with metadata (where ID is an INT)
     function filterMetaData_Values(metadata) {
       return metadata.id === SID;
-    };
+    }
     var metadatum = metadata.filter(filterMetaData_Values)[0];
-    console.log("Metadatum: ");
-    console.log(typeof metadatum);
-    var clear = demoInfo.html("");
-    var makeTable = demoInfo.append("table");
-    var makeTableBody = makeTable.append("tbody").classed("t-body");
-  //remove leftover rows
-  var oldRows = d3.select("tbody").selectAll("tr");
-  oldRows.remove();
-  //Print table
-  var printTable = d3.select("tbody");
-  //Print table by key and value within each row
-  Object.entries(metadatum).forEach(([key, value]) => {
-    var row = printTable.append("tr");
-    var cell1 = row.append("td");
-    cell1.text(key);
-    var cell2 = row.append("td");
-    console.log(value);
-    cell2.text(value);
+    var wfreq = metadatum.wfreq;
+    console.log(wfreq)
+    demoInfo.html("");
+    Object.entries(metadatum).forEach(([key, value]) => {
+      demoInfo.append("p").text(`${key.toUpperCase()}: ${value}`);
+    });
   });
-});
-
-
-};
+}
 
 // FUNCTION: Initialize Dashboard
 function initDashboard() {
-    //Select dropdown
-    var dropdown = d3.select("#selDataset");
-    //Select Demographic data box
-    var demoInfo = d3.select("#sample-metadata");
-    //Read samples.json
-    d3.json("samples.json").then((data) => {
-      //grab array of names for dropdown
-      var names = data.names;
-      names.forEach((UID) => {
-        //Create dropdown options by appending each name to text and property attributes of new option
-        dropdown.append("option").text(UID).property("value", UID);
-        //console.log(typeof(UID))
-      });
-      //Set UID to first value to build initial plots and table
-      var SID = "940";
-      //call function to build initial charts and table
-      buildChartsTable(SID);
+  //Select dropdown
+  var dropdown = d3.select("#selDataset");
+  //Select Demographic data box
+  var demoInfo = d3.select("#sample-metadata");
+  //Read samples.json
+  d3.json("samples.json").then((data) => {
+    //grab array of names for dropdown
+    var names = data.names;
+    names.forEach((UID) => {
+      //Create dropdown options by appending each name to text and property attributes of new option
+      dropdown.append("option").text(UID).property("value", UID);
+      //console.log(typeof(UID))
     });
-};
+    //Set UID to first value to build initial plots and table
+    var SID = "940";
+    //call function to build initial charts and table
+    buildChartsTable(SID);
+  });
+}
 
-    //Event handler to listen for option selection
+//Event handler to listen for option selection
 //d3.selectAll("#selDataset").on("change", buildChartsTable);
 
 //Init function to populate dropdown with UID #s
