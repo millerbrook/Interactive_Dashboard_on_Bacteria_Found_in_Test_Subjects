@@ -86,7 +86,19 @@ function buildChartsTable(SID) {
       showlegend: false,
       height: 600,
       area: 600,
+      xaxis: {
+        title: {
+          text: `OTU Labels for Subject ${SID}`,
+          font: {
+            family: 'Courier New, monospace',
+            size: 18,
+            color: '#7f7f7f'
+          }
+        },
+      },
     };
+
+    
     //Plot both charts
     Plotly.newPlot("bar", barData);
     Plotly.newPlot("bubble", bubbleData, layout);
@@ -108,6 +120,31 @@ function buildChartsTable(SID) {
     Object.entries(metadatum).forEach(([key, value]) => {
       demoInfo.append("p").text(`${key.toUpperCase()}: ${value}`);
     });
+
+    //Gauge chart
+    var gaugeData = [
+      {
+        domain: { x: [0, 1], y: [0, 1] },
+        value: wfreq,
+        title: { text: "Belly Button Washing Frequency (per week)" },
+        type: "indicator",
+        mode: "gauge+number",
+        gauge: {
+          axis: { range: [null, 8], tickwidth: 1, tickcolor: "darkblue" },
+          bar: { color: "darkblue" },
+          bgcolor: "white",
+          borderwidth: 2,
+          bordercolor: "gray",
+          steps: [
+            { range: [0, 3], color: "cyan" },
+            { range: [3, 8], color: "royalblue" }
+          ]
+        }
+      }
+    ];
+    
+    var layout = { width: 600, height: 500, margin: { t: 0, b: 0 } };
+    Plotly.newPlot('gauge', gaugeData, layout);
   });
 }
 
