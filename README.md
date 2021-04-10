@@ -1,4 +1,4 @@
-BULLET LIST OF TAKS
+BULLET LIST OF TASKS
 
 1. Use the D3 library to read in `samples.json`: DONE
 
@@ -9,8 +9,6 @@ BULLET LIST OF TAKS
 * Use `otu_ids` as the labels for the bar chart.DONE == ten_otu_ids
 
 * Use `otu_labels` as the hovertext for the chart. DONE == ten_otu_labels
-
-  ![bar Chart](Images/hw01.png)
 
 3. Create a bubble chart that displays each sample.
 
@@ -24,13 +22,9 @@ BULLET LIST OF TAKS
 
 * Use `otu_labels` for the text values. DONE == otu_labels
 
-![Bubble Chart](Images/bubble_chart.png)
-
 4. Display the sample metadata, i.e., an individual's demographic information. DONE
 
 5. Display each key-value pair from the metadata JSON object somewhere on the page. DONE == in Demographic Info
-
-![hw](Images/hw03.png)
 
 6. Update all of the plots any time that a new sample is selected. DONE: sample selection updates
 
