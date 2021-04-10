@@ -38,7 +38,7 @@ function buildChartsTable(SID) {
         }
       }
     }
-    //Was there an easier way to do that?
+    //Was there an easier way to do that? Nested forEach?
 
     //Now, make arrays of otu_ids and otu_labels based on the data_indexes (so all three arrays line up)
     ten_otu_ids = [];
@@ -130,14 +130,14 @@ function buildChartsTable(SID) {
         type: "indicator",
         mode: "gauge+number",
         gauge: {
-          axis: { range: [null, 8], tickwidth: 1, tickcolor: "darkblue" },
+          axis: { range: [null, 9], tickwidth: 1, tickcolor: "darkblue" },
           bar: { color: "darkblue" },
           bgcolor: "white",
           borderwidth: 2,
           bordercolor: "gray",
           steps: [
-            { range: [0, 3], color: "cyan" },
-            { range: [3, 8], color: "royalblue" }
+            { range: [0, 5], color: "cyan" },
+            { range: [5, 9], color: "royalblue" }
           ]
         }
       }
