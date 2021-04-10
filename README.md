@@ -38,6 +38,6 @@ Additionally, you are welcome to create any layout that you would like for your 
 
 ## Deployment
 
-* Deploy your app to a free static page hosting service, such as GitHub Pages. Submit the links to your deployment and your GitHub repo. DONE, BUT INITIAL WEIRD ERRORS FROM GITHUB. CACHE ISSUE?
+* Deploy your app to a free static page hosting service, such as GitHub Pages. Submit the links to your deployment and your GitHub repo. DONE
 
 * Ensure your repository has regular commits (i.e. 20+ commits) and a thorough README.md file. NOT 20 COMMITS, BUT MORE THAN 10.
