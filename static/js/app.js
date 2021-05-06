@@ -1,11 +1,9 @@
-//Function to build demographic data table
+//Overarching function to build demographic data table
 function buildChartsTable(SID) {
   //console.log(typeof metadatum);
 
   //Read samples.json
   d3.json("samples.json").then((data) => {
-    //console.log(`SID: ${SID}`);
-    //console.log(data); //Checked -- returns full data object
     var samples = data.samples; //create value to capture whole samples object from data
     //return appropriate sample object from within samples
     function filterSample_Values(samples) {
@@ -38,7 +36,6 @@ function buildChartsTable(SID) {
         }
       }
     }
-    //Was there an easier way to do that? Nested forEach?
 
     //Now, make arrays of otu_ids and otu_labels based on the data_indexes (so all three arrays line up)
     ten_otu_ids = [];
@@ -49,12 +46,12 @@ function buildChartsTable(SID) {
     });
 
     //Check that everything lines up
-    console.log("Ten Sample Values: ");
-    console.log(tenSampleValues);
-    console.log("Ten Otu Ids: ");
-    console.log(ten_otu_ids);
-    console.log("Ten Otu Labels: ");
-    console.log(ten_otu_labels);
+    // console.log("Ten Sample Values: ");
+    // console.log(tenSampleValues);
+    // console.log("Ten Otu Ids: ");
+    // console.log(ten_otu_ids);
+    // console.log("Ten Otu Labels: ");
+    // console.log(ten_otu_labels);
 
     //Build Horizontal Bar Chart
     var barData = [
@@ -66,6 +63,7 @@ function buildChartsTable(SID) {
         orientation: "h",
       },
     ];
+
     //Build Bubble Chart
     var bubbleData = [
       {
@@ -82,6 +80,7 @@ function buildChartsTable(SID) {
       },
     ];
 
+    //Set layout
     var layout = {
       showlegend: false,
       height: 600,
@@ -90,38 +89,39 @@ function buildChartsTable(SID) {
         title: {
           text: `OTU Labels for Subject ${SID}`,
           font: {
-            family: 'Courier New, monospace',
+            family: "Courier New, monospace",
             size: 18,
-            color: '#7f7f7f'
-          }
+            color: "#7f7f7f",
+          },
         },
       },
     };
 
-    
     //Plot both charts
     Plotly.newPlot("bar", barData);
     Plotly.newPlot("bubble", bubbleData, layout);
 
     //Select Demographic data box
     var demoInfo = d3.select("#sample-metadata");
+
     //Populate Demographic Box
-    //First, grab appropriate metadata
+    //Grab appropriate metadata
     var metadata = data.metadata; //create value to capture whole samples object from data
-    //return appropriate sample object from within samples
+
+    //Return appropriate sample object from within samples
     SID = parseInt(SID); //Convert string SID to INT to work with metadata (where ID is an INT)
     function filterMetaData_Values(metadata) {
       return metadata.id === SID;
     }
     var metadatum = metadata.filter(filterMetaData_Values)[0];
     var wfreq = metadatum.wfreq;
-    console.log(wfreq)
+    console.log(wfreq);
     demoInfo.html("");
     Object.entries(metadatum).forEach(([key, value]) => {
       demoInfo.append("p").text(`${key.toUpperCase()}: ${value}`);
     });
 
-    //Gauge chart
+    //Create gauge chart
     var gaugeData = [
       {
         domain: { x: [0, 1], y: [0, 1] },
@@ -137,18 +137,19 @@ function buildChartsTable(SID) {
           bordercolor: "gray",
           steps: [
             { range: [0, 5], color: "cyan" },
-            { range: [5, 9], color: "royalblue" }
-          ]
-        }
-      }
+            { range: [5, 9], color: "royalblue" },
+          ],
+        },
+      },
     ];
-    
+
+    //Set layout and make plot
     var layout = { width: 600, height: 500, margin: { t: 0, b: 0 } };
-    Plotly.newPlot('gauge', gaugeData, layout);
+    Plotly.newPlot("gauge", gaugeData, layout);
   });
 }
 
-// FUNCTION: Initialize Dashboard
+//Initialize Dashboard
 function initDashboard() {
   //Select dropdown
   var dropdown = d3.select("#selDataset");
@@ -169,9 +170,6 @@ function initDashboard() {
     buildChartsTable(SID);
   });
 }
-
-//Event handler to listen for option selection
-//d3.selectAll("#selDataset").on("change", buildChartsTable);
 
 //Init function to populate dropdown with UID #s
 initDashboard();
