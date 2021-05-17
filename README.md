@@ -4,7 +4,9 @@
 This project visualizes data from a JSON file that reports types of bacteria found in the umbilici (non-scientific name: belly buttons) of a variety of test subjects. The dashboard allows users to explore the demographic information, bateria types, and washing frequency associated with each subject in the study.
 
 ---
-
+### See the project here
+https://millerbrook.github.io/Interactive_Dashboard_on_Bacteria_Found_in_Test_Subjects/
+---
 ## Steps
 
 ### Step 1
