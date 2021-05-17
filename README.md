@@ -89,7 +89,7 @@ Build vizualizations and associated elements.
 ![Visualizations](static/screenshots/visualizations.png)
 
 ### Step 4
-Deploy to Github Pages: https://millerbrook.github.io/interactive-viz-dash-challenge/
+Deploy to Github Pages: https://millerbrook.github.io/Interactive_Dashboard_on_Bacteria_Found_in_Test_Subjects/
 
 ## Contact Information
 
